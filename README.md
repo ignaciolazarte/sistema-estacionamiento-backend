@@ -1,126 +1,159 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Sistema de Estacionamiento Inteligente — Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API backend para el sistema de gestión de un estacionamiento, desarrollada con [NestJS](https://nestjs.com/) y TypeScript. Proyecto de la materia Programación IV de la UTN FRT.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+> **Estado del proyecto:** está en desarrollo. Actualmente está disponible la ruta raíz `GET /`. Los módulos de dominio contienen controladores y servicios iniciales, pero todavía no están conectados a la aplicación ni implementan persistencia.
 
-## Description
+## Contenido
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Alcance](#alcance)
+- [Tecnologías](#tecnologías)
+- [Requisitos](#requisitos)
+- [Instalación y ejecución](#instalación-y-ejecución)
+- [Variables de entorno](#variables-de-entorno)
+- [API disponible](#api-disponible)
+- [Módulos en desarrollo](#módulos-en-desarrollo)
+- [Comandos](#comandos)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Pruebas](#pruebas)
 
-## Project setup
+## Alcance
 
-```bash
-$ npm install
-```
+El sistema busca centralizar la administración de vehículos, accesos, tarifas, abonados, sectores, usuarios y autenticación. Estas funcionalidades representan el alcance previsto; todavía no todas están implementadas.
 
-## Compile and run the project
+## Tecnologías
 
-```bash
-# development
-$ npm run start
+- **Entorno:** Node.js y npm.
+- **Framework:** NestJS 12.
+- **Lenguaje:** TypeScript.
+- **Pruebas:** Vitest y Supertest.
+- **Observabilidad:** integración inicial con `@nestjs/observe`.
 
-# watch mode
-$ npm run start:dev
+La conexión a una base de datos aún no está implementada.
 
-# production mode
-$ npm run start:prod
-```
+## Requisitos
 
-## Run tests
+- Node.js compatible con NestJS 12.
+- npm.
+- Git para clonar el repositorio.
+
+## Instalación y ejecución
+
+Cloná el repositorio e instalá las dependencias:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+git clone https://github.com/ignaciolazarte/sistema-estacionamiento-backend.git
+cd sistema-estacionamiento-backend
+npm install
 ```
 
-## Deployment
+Creá un archivo `.env` en la raíz del proyecto. Para iniciar localmente alcanza con:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+```dotenv
+PORT=3000
+```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Iniciá el servidor en modo desarrollo:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+La aplicación queda disponible en `http://localhost:3000` (o en el puerto definido por `PORT`). El modo desarrollo reinicia el servidor cuando detecta cambios.
 
-## Observability
+## Variables de entorno
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
+| Variable | Uso | Valor predeterminado |
+| --- | --- | --- |
+| `PORT` | Puerto HTTP de la aplicación. | `3000` |
+| `OBSERVE_APP_KEY` | Clave de NestJS Observe. | Valor de ejemplo definido por la aplicación. |
+| `OBSERVE_APP_SECRET` | Secreto de NestJS Observe. | Valor de ejemplo definido por la aplicación. |
 
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
+Las credenciales de Observe pueden configurarse con `npx @nestjs/observe link`. No guardes credenciales reales en el repositorio. Aunque puede existir una variable `DATABASE_URL` en el entorno local, actualmente la aplicación no la consume ni abre una conexión a una base de datos.
 
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
+## API disponible
 
-This project is already instrumented. To connect it, run this and approve the code it prints at [observe.nestjs.com/link](https://observe.nestjs.com/link) - signing up for free if you have no account:
+### Verificar que el servidor responde
+
+```http
+GET /
+```
+
+Respuesta `200 OK`:
+
+```text
+Hello World!
+```
+
+Ejemplo:
 
 ```bash
-$ npx @nestjs/observe link
+curl http://localhost:3000/
 ```
 
-It writes the app key and secret into `.env` and makes every `nest start` script (`start`, `start:dev`, `start:debug`) load it. In production, set `OBSERVE_APP_KEY` and `OBSERVE_APP_SECRET` in the environment instead.
+Los controladores de vehículos, accesos, tarifas, abonados, sectores, usuarios y autenticación todavía no están registrados en `AppModule`; sus rutas no forman parte de la API disponible.
 
-Or do it by hand: create an application and an API key at [observe.nestjs.com](https://observe.nestjs.com), and set the pair as `OBSERVE_APP_KEY` and `OBSERVE_APP_SECRET` in the environment the app runs in.
+## Módulos en desarrollo
 
-The free plan needs no payment details and covers 300,000 events a month. You can also browse the [live demo](https://www.observe-demo.nestjs.com/dashboard) first - the whole dashboard over a busy service's data, with nothing to install.
+| Módulo | Propósito |
+| --- | --- |
+| `Vehiculos` | Gestión de vehículos. |
+| `Accesos` | Registro de accesos. |
+| `Tarifas` | Administración de tarifas. |
+| `Abonados` | Gestión de abonados. |
+| `Sectores` | Administración de sectores. |
+| `users` | Gestión de usuarios. |
+| `auth` | Funcionalidades de autenticación. |
 
-## Resources
+Los controladores generados siguen una estructura CRUD (`POST /`, `GET /`, `GET /:id`, `PATCH /:id` y `DELETE /:id` bajo la ruta de cada módulo), pero sus servicios aún son de ejemplo y esas rutas no están activas.
 
-Check out a few resources that may come in handy when working with NestJS:
+## Comandos
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observe](https://observe.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+| Comando | Descripción |
+| --- | --- |
+| `npm run start` | Inicia la aplicación. |
+| `npm run start:dev` | Inicia en modo desarrollo con recarga automática. |
+| `npm run start:debug` | Inicia en modo desarrollo con depuración. |
+| `npm run start:prod` | Ejecuta la versión compilada desde `dist/`. |
+| `npm run build` | Compila el proyecto. |
+| `npm run lint` | Analiza el código fuente y las pruebas con Oxlint. |
+| `npm run format` | Formatea los archivos TypeScript de `src/` y `test/`. |
+| `npm test` | Ejecuta las pruebas unitarias. |
+| `npm run test:watch` | Ejecuta las pruebas en modo watch. |
+| `npm run test:cov` | Ejecuta las pruebas y genera cobertura. |
+| `npm run test:e2e` | Ejecuta las pruebas end-to-end. |
 
-## Support
+Para compilar y ejecutar en modo producción:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm run build
+npm run start:prod
+```
 
-## Stay in touch
+## Estructura del proyecto
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```text
+src/
+├── main.ts
+└── modules/
+    ├── App/          # Módulo principal y ruta de bienvenida
+    ├── Abonados/
+    ├── Accesos/
+    ├── Sectores/
+    ├── Tarifas/
+    ├── Vehiculos/
+    ├── auth/
+    └── users/
+test/                 # Pruebas end-to-end
+```
 
-## License
+Los módulos de dominio organizan controladores, servicios, DTOs y entidades en subdirectorios. Las pruebas unitarias están junto a las clases que prueban, con extensión `.spec.ts`.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Pruebas
+
+Ejecutá las pruebas unitarias y end-to-end con:
+
+```bash
+npm test
+npm run test:e2e
+```
