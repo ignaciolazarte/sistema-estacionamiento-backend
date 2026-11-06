@@ -1,6 +1,6 @@
 # Sistema de Estacionamiento Inteligente - Backend
 
-Backend desarrollado con **NestJS** para la materia de Programacion IV de la **UTN FRT** . Este servicio provee una API REST modular para la gestión integral de un estacionamiento (vehículos, tarifas, accesos, abonados, sectores y usuarios).
+Backend desarrollado con **NestJS** para la materia de Programacion IV de la **UTN FRT** . Este servicio provee una API REST modular para la gestión integral de un estacionamiento (vehículos, tarifas, accesos, abonados, sectores y usuarios)..
 
 ---
 
