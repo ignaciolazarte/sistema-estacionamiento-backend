@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe } from '@nestjs/common';
 import { SectoresService } from './sectores.service.js';
 import { CreateSectoreDto } from './dto/create-sectore.dto.js';
 import { UpdateSectoreDto } from './dto/update-sectore.dto.js';
@@ -18,17 +18,20 @@ export class SectoresController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.sectoresService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.sectoresService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSectoreDto: UpdateSectoreDto) {
-    return this.sectoresService.update(+id, updateSectoreDto);
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateSectoreDto: UpdateSectoreDto,
+  ) {
+    return this.sectoresService.update(id, updateSectoreDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.sectoresService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.sectoresService.remove(id);
   }
 }
