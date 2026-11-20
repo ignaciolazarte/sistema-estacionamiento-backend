@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller,Get,Post,Put,Delete,Body,Param,ParseIntPipe,} from '@nestjs/common';
 import { AccesosService } from './accesos.service.js';
 import { CreateAccesoDto } from './dto/create-acceso.dto.js';
-import { UpdateAccesoDto } from './dto/update-acceso.dto.js';
 
 @Controller('accesos')
 export class AccesosController {
@@ -18,17 +17,20 @@ export class AccesosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.accesosService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.accesosService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAccesoDto: UpdateAccesoDto) {
-    return this.accesosService.update(+id, updateAccesoDto);
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateAccesoDto: CreateAccesoDto,
+  ) {
+    return this.accesosService.update(id, updateAccesoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.accesosService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.accesosService.remove(id);
   }
 }
