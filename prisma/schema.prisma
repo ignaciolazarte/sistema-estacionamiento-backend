@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model abonados {
+  id_abonado Int         @id @default(autoincrement())
+  dni        String      @unique @db.VarChar(15)
+  nombre     String      @db.VarChar(80)
+  apellido   String      @db.VarChar(80)
+  telefono   String?     @db.VarChar(30)
+  email      String?     @db.VarChar(120)
+  fecha_alta DateTime    @default(dbgenerated("CURRENT_DATE")) @db.Date
+  activo     Boolean     @default(true)
+  vehiculos  vehiculos[]
+}
+
+model accesos {
+  id_acceso          Int       @id @default(autoincrement())
+  id_vehiculo        Int
+  id_sector          Int
+  id_user_operador   Int
+  fecha_hora_entrada DateTime  @default(now()) @db.Timestamp(6)
+  fecha_hora_salida  DateTime? @db.Timestamp(6)
+  monto_cobrado      Decimal?  @db.Decimal(10, 2)
+  estado             String    @db.VarChar(20)
+  sectores           sectores  @relation(fields: [id_sector], references: [id_sector], onDelete: NoAction, onUpdate: NoAction, map: "fk_acceso_sector")
+  users              users     @relation(fields: [id_user_operador], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "fk_acceso_usuario")
+  vehiculos          vehiculos @relation(fields: [id_vehiculo], references: [id_vehiculo], onDelete: NoAction, onUpdate: NoAction, map: "fk_acceso_vehiculo")
+}
+
+model sectores {
+  id_sector           Int       @id @default(autoincrement())
+  nombre_sector       String    @db.VarChar(50)
+  piso                Int
+  capacidad_maxima    Int
+  id_tarifa_permitida Int
+  accesos             accesos[]
+  tarifas             tarifas   @relation(fields: [id_tarifa_permitida], references: [id_tarifa], onDelete: NoAction, onUpdate: NoAction, map: "fk_sector_tarifa")
+}
+
+model tarifas {
+  id_tarifa            Int         @id @default(autoincrement())
+  tipo_vehiculo        String      @db.VarChar(50)
+  precio_hora          Decimal     @db.Decimal(10, 2)
+  precio_estadia       Decimal     @db.Decimal(10, 2)
+  precio_abono_mensual Decimal     @db.Decimal(10, 2)
+  sectores             sectores[]
+  vehiculos            vehiculos[]
+}
+
+model users {
+  id_user       Int       @id @default(autoincrement())
+  nombre        String    @db.VarChar(80)
+  apellido      String    @db.VarChar(80)
+  email         String    @unique @db.VarChar(120)
+  password_hash String    @db.VarChar(255)
+  rol           String    @db.VarChar(30)
+  activo        Boolean   @default(true)
+  accesos       accesos[]
+}
+
+model vehiculos {
+  id_vehiculo Int       @id @default(autoincrement())
+  patente     String    @unique @db.VarChar(15)
+  marca       String?   @db.VarChar(50)
+  modelo      String?   @db.VarChar(50)
+  id_tarifa   Int
+  id_abonado  Int?
+  accesos     accesos[]
+  abonados    abonados? @relation(fields: [id_abonado], references: [id_abonado], onDelete: NoAction, onUpdate: NoAction, map: "fk_vehiculo_abonado")
+  tarifas     tarifas   @relation(fields: [id_tarifa], references: [id_tarifa], onDelete: NoAction, onUpdate: NoAction, map: "fk_vehiculo_tarifa")
+}
