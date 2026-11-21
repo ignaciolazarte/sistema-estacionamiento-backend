@@ -25,10 +25,7 @@ export class TarifasController {
   @Get()
   findAll() {
     return this.tarifasService.findAll();
-  
-  return 'ESTE ES EL CONTROLLER DE TARIFAS CORRECTO';
-}
-  
+  }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {

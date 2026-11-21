@@ -10,7 +10,6 @@ import { TarifasModule } from '../Tarifas/tarifas.module.js';
 import { UsersModule } from '../users/users.module.js';
 import { VehiculosModule } from '../Vehiculos/vehiculos.module.js';
 import { PrismaModule } from '../../prisma/prisma.module.js';
-
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
 @Module({
