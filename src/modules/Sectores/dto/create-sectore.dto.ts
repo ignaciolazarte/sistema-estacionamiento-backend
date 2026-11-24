@@ -1,4 +1,9 @@
-import { IsString, IsNotEmpty, IsInt, IsPositive } from "class-validator";
+import {
+  IsString,
+  IsNotEmpty,
+  IsInt,
+  Min,
+} from 'class-validator';
 
 export class CreateSectoreDto {
   @IsString({ message: 'El nombre del sector debe ser un texto.' })
@@ -13,5 +18,8 @@ export class CreateSectoreDto {
   @IsNotEmpty({ message: 'La capacidad máxima es obligatoria.' })
   @IsPositive({ message: 'La capacidad máxima debe ser mayor que cero.' })
   capacidad_maxima: number;
-  
+
+  @IsInt({ message: 'La tarifa permitida debe ser un número entero.' })
+  id_tarifa_permitida: number;
 }
+

@@ -1,26 +1,48 @@
+
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateVehiculoDto } from './dto/create-vehiculo.dto.js';
 import { UpdateVehiculoDto } from './dto/update-vehiculo.dto.js';
 
 @Injectable()
 export class VehiculosService {
+  constructor(private readonly prisma: PrismaService) {}
+
   create(createVehiculoDto: CreateVehiculoDto) {
-    return 'This action adds a new vehiculo';
-  }
-
+  return this.prisma.vehiculos.create({
+    data: {
+      patente: createVehiculoDto.patente,
+      marca: createVehiculoDto.marca,
+      modelo: createVehiculoDto.modelo,
+      id_tarifa: createVehiculoDto.id_tarifa,
+      id_abonado: createVehiculoDto.id_abonado,
+    },
+  });
+}
   findAll() {
-    return `This action returns all vehiculos`;
-  }
-
+  return this.prisma.vehiculos.findMany();
+}
   findOne(id: number) {
-    return `This action returns a #${id} vehiculo`;
+    return this.prisma.vehiculos.findUnique({
+      where: { id_vehiculo: id },
+      include: {
+        abonados: true,
+        tarifas: true,
+      },
+    });
   }
 
   update(id: number, updateVehiculoDto: UpdateVehiculoDto) {
-    return `This action updates a #${id} vehiculo`;
+    return this.prisma.vehiculos.update({
+      where: { id_vehiculo: id },
+      data: updateVehiculoDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} vehiculo`;
+    return this.prisma.vehiculos.delete({
+      where: { id_vehiculo: id },
+    });
   }
 }
+

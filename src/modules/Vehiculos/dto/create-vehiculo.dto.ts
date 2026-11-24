@@ -1,4 +1,9 @@
-import { IsString, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsInt,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateVehiculoDto {
   @IsString({ message: 'La patente debe ser un texto.' })
@@ -13,4 +18,10 @@ export class CreateVehiculoDto {
   @IsNotEmpty({ message: 'El modelo es obligatorio.' })
   modelo: string;
 
+  @IsInt({ message: 'La tarifa debe ser un número entero.' })
+  id_tarifa: number;
+
+  @IsOptional()
+  @IsInt({ message: 'El abonado debe ser un número entero.' })
+  id_abonado?: number;
 }

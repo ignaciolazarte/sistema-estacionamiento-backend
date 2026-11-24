@@ -1,4 +1,12 @@
-import { IsString, IsNotEmpty, IsEmail, IsDateString, IsBoolean, IsNumber} from 'class-validator';
+
+import {
+  IsString,
+  IsNotEmpty,
+  IsEmail,
+  IsDateString,
+  IsBoolean,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateAbonadoDto {
   @IsString({ message: 'El DNI debe ser un texto.' })

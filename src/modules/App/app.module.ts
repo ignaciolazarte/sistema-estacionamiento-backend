@@ -9,7 +9,7 @@ import { SectoresModule } from '../Sectores/sectores.module.js';
 import { TarifasModule } from '../Tarifas/tarifas.module.js';
 import { UsersModule } from '../users/users.module.js';
 import { VehiculosModule } from '../Vehiculos/vehiculos.module.js';
-
+import { PrismaModule } from '../../prisma/prisma.module.js';
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
 @Module({
@@ -19,6 +19,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       appSecret: process.env.OBSERVE_APP_SECRET ?? 'YOUR_APP_SECRET',
       serviceId: 'sistema-backend',
     }),
+    PrismaModule,
     AbonadosModule,
     AccesosModule,
     AuthModule,
@@ -31,3 +32,5 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
   providers: [AppService],
 })
 export class AppModule {}
+
+

@@ -1,26 +1,46 @@
+
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateAccesoDto } from './dto/create-acceso.dto.js';
 import { UpdateAccesoDto } from './dto/update-acceso.dto.js';
 
 @Injectable()
 export class AccesosService {
+  constructor(private readonly prisma: PrismaService) {}
   create(createAccesoDto: CreateAccesoDto) {
-    return 'This action adds a new acceso';
+    return this.prisma.accesos.create({
+      data: createAccesoDto,
+    });
   }
+ findAll() {
 
-  findAll() {
-    return `This action returns all accesos`;
-  }
-
+  return this.prisma.accesos.findMany({
+    include: {
+      vehiculos: true,
+      sectores: true,
+      users: true,
+    },
+  });
+}
   findOne(id: number) {
-    return `This action returns a #${id} acceso`;
+    return this.prisma.accesos.findUnique({
+      where: { id_acceso: id },
+      include: {
+        vehiculos: true,
+        sectores: true,
+        users: true,
+      },
+    });
   }
-
   update(id: number, updateAccesoDto: UpdateAccesoDto) {
-    return `This action updates a #${id} acceso`;
+    return this.prisma.accesos.update({
+      where: { id_acceso: id },
+      data: updateAccesoDto,
+    });
   }
-
   remove(id: number) {
-    return `This action removes a #${id} acceso`;
+    return this.prisma.accesos.delete({
+      where: { id_acceso: id },
+    });
   }
 }
