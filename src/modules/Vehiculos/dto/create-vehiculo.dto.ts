@@ -10,13 +10,13 @@ export class CreateVehiculoDto {
   @IsNotEmpty({ message: 'La patente es obligatoria.' })
   patente: string;
 
-  @IsOptional()
   @IsString({ message: 'La marca debe ser un texto.' })
-  marca?: string;
+  @IsNotEmpty({ message: 'La marca es obligatoria.' })
+  marca: string;
 
-  @IsOptional()
   @IsString({ message: 'El modelo debe ser un texto.' })
-  modelo?: string;
+  @IsNotEmpty({ message: 'El modelo es obligatorio.' })
+  modelo: string;
 
   @IsInt({ message: 'La tarifa debe ser un número entero.' })
   id_tarifa: number;
