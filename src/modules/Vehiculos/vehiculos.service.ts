@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateVehiculoDto } from './dto/create-vehiculo.dto.js';
 import { UpdateVehiculoDto } from './dto/update-vehiculo.dto.js';
-type Prueba = CreateVehiculoDto['id_tarifa'];
 
 @Injectable()
 export class VehiculosService {

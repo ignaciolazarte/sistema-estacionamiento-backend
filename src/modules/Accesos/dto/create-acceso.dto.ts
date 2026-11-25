@@ -10,37 +10,21 @@ import {
 } from 'class-validator';
 
 export class CreateAccesoDto {
-  @Type(() => Number)
-  @IsInt()
-  id_vehiculo: number;
-
-  @Type(() => Number)
-  @IsInt()
-  id_sector: number;
-
-  @Type(() => Number)
-  @IsInt()
-  id_user_operador: number;
-
-  @IsDateString({}, {
-    message: 'La fecha y hora de entrada deben tener un formato válido.',
-  })
-  @IsNotEmpty()
+  @IsDateString({}, { message: 'La fecha y hora de entrada deben tener un formato válido.' })
+  @IsNotEmpty({ message: 'La fecha y hora de entrada son obligatorias.' })
   fecha_hora_entrada: string;
 
-  @IsDateString({}, {
-    message: 'La fecha y hora de salida deben tener un formato válido.',
-  })
+  @IsDateString({}, { message: 'La fecha y hora de salida deben tener un formato válido.' })
   @IsOptional()
   fecha_hora_salida?: string;
 
   @Type(() => Number)
-  @IsNumber()
-  @IsPositive()
+  @IsNumber({}, { message: 'El monto cobrado debe ser un número.' })
+  @IsPositive({ message: 'El monto cobrado debe ser mayor que cero.' })
   @IsOptional()
   monto_cobrado?: number;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'El estado debe ser un texto.' })
+  @IsNotEmpty({ message: 'El estado es obligatorio.' })
   estado: string;
 }
